@@ -4,7 +4,7 @@ import Signup from './pages/Signup';
 import Home from './pages/Home';
 import About from './pages/About';
 import Profile from './pages/Profile';
-
+import Header from './components/Header';
 const routes =(
   <Router>
     <Routes>
@@ -23,7 +23,14 @@ function App() {
   
 
   return (
-   <div>{routes}</div>
+    <>
+     <Header/>
+    <div>{routes}</div>
+    
+   
+
+    </>
+   
   )
 }
 
