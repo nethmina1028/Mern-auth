@@ -8,7 +8,7 @@ const router = express.Router();
 
 //signup Api
 
-router.post('/signup', async (req, res) => {
+router.post('/signup', async (req, res,next) => {
 
 //console.log(req.body);
 
@@ -26,12 +26,9 @@ router.post('/signup', async (req, res) => {
        message: 'User created successfully!',
    });
  }catch(err){
-     res.status(500).json({
-         message: 'Something went wrong!',
-     });
- }
-   
-
+     next(err);
+     }
+ 
 });
 
 export default router;
