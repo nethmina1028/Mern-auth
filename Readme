@@ -1,2 +1,3 @@
 add hashpassword to encript password
       --> npm i bcryptjs
+      --> npm i jsonwebtoken
