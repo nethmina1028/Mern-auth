@@ -1,6 +1,7 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";  //1
 
- const initialState = {
+
+ const initialState = {         //2
        currentUser:null,
        loading:false,
        error:false,
@@ -8,7 +9,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 
 
-const userSlice = createSlice({
+const userSlice = createSlice({   //3
         name:'user',
         initialState,
         reducers:{
@@ -29,6 +30,6 @@ const userSlice = createSlice({
         }
 });
 
-export const {signInStart,signInSuccess,signInFailure} = userSlice.actions;
+export const {signInStart,signInSuccess,signInFailure} = userSlice.actions; //4
 
-export default userSlice.reducer;
+export default userSlice.reducer;  //5
