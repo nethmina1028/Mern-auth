@@ -1,12 +1,19 @@
 import { useState } from 'react'
 import { Link,useNavigate} from 'react-router-dom'
+import { signInStart,signInSuccess,signInFailure } from '../redux/user/userSlice';
+import { useDispatch, useSelector } from 'react-redux';
+
 
 function Signin() {
           const [formData, setFormData] = useState({});
-          const [error, setError] = useState(false);
+          /*const [error, setError] = useState(false);
           const [loading, setLoading] = useState(false);
+          */
+         const {loading,error} = useSelector((state) => state.user); //from redux
           const navigate = useNavigate();
+          const dispatch = useDispatch();
 
+          
           const handleChange = (e) => {
             setFormData({...formData, [e.target.id]: e.target.value});
             
@@ -16,9 +23,12 @@ function Signin() {
              e.preventDefault();
           
             try{
+              
+              /* move this to redux
               setLoading(true);
               setError(false);
-              
+              */
+              dispatch(signInStart());
               const res = await fetch('api/auth/signin', {  //when using axios we dont want this below code part
                 method: 'POST',
                 headers: {
@@ -29,19 +39,25 @@ function Signin() {
              } );
              
               const data = await res.json();
-              setLoading(false);
+             /* setLoading(false); */
+            
+             
               if(data.success === false){
-                setError(true);
+                /*setError(true); */
+                dispatch(signInFailure(data));
                 return;
               }
-              
-              navigate('/')
+              dispatch(signInSuccess(data));
+              navigate('/');
               
              // console.log(data);
             } catch (error) {
               
+              /*
               setLoading(false);
               setError(true);
+              */
+              dispatch(signInFailure(error));
               
             }
             
@@ -85,7 +101,7 @@ function Signin() {
           <span className='text-blue-500'>Sign in</span>
         </Link>
       </div>
-      <p className='mt-5 text-red-700'>{error && 'Somethig went Wrong!'}</p>
+      <p className='mt-5 text-red-700'>{ error ? error.message || 'Somethig went Wrong!' :''}</p>
     </div>
   )
 }
